@@ -1,0 +1,73 @@
+export const songs = [
+    {
+      title: 'Faded',
+      artist: 'Alan Walker',
+      artwork: require('./songs/images/faded.jpg'),
+      url: require('./songs/faded.mp3'),
+      genre: 'Electronic',
+    },
+    {
+      title: 'Head Light',
+      artist: 'Alan Walker',
+      artwork: require('./songs/images/headlight.jpg'),
+      url: require('./songs/headlight.mp3'),
+      genre: 'Electronic',
+    },
+    {
+      title: 'Attention',
+      artist: 'Charlie Puth',
+      artwork: require('./songs/images/attention.jpg'),
+      url: require('./songs/attention.mp3'),
+      genre: 'Pop',
+    },
+    {
+      title: 'On My Way',
+      artist: 'Alan Walker',
+      artwork: require('./songs/images/on_my_way.jpg'),
+      url: require('./songs/on_my_way.mp3'),
+      genre: 'Electronic',
+    },
+    {
+      title: 'Dreamers',
+      artist: 'Jung Kook',
+      artwork: require('./songs/images/dreamers.jpg'),
+      url: require('./songs/dreamers.mp3'),
+      genre: 'K-Pop',
+    },
+    {
+      title: 'Wavin Flag',
+      artist: 'K’Naan',
+      artwork: require('./songs/images/wavinflag.jpg'),
+      url: require('./songs/wavin_flag.mp3'),
+      genre: 'World',
+    },
+    {
+      title: 'Rockabye',
+      artist: 'Clean Bandit',
+      artwork: require('./songs/images/rockabye.jpg'),
+      url: require('./songs/rockabye.mp3'),
+      genre: 'Pop',
+    },
+    {
+      title: "We Don’t Talk Anymore",
+      artist: 'Charlie Puth',
+      artwork: require('./songs/images/wdtam.jpg'),
+      url: require('./songs/no_talk.mp3'),
+      genre: 'Pop',
+    },
+    {
+      title: 'See You Again',
+      artist: 'Charlie Puth',
+      artwork: require('./songs/images/without_my_friend.jpg'),
+      url: require('./songs/see_you_again.mp3'),
+      genre: 'Pop',
+    },
+    {
+      title: 'Dark Side',
+      artist: 'Sabrina',
+      artwork: require('./songs/images/darkside.jpg'),
+      url: require('./songs/darkside.mp3'),
+      genre: 'Electronic',
+    },
+  ];
+  
