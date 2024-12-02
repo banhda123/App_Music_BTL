@@ -11,8 +11,8 @@ import { useState } from 'react';
 import SearchScreen from './screens/SearchScreen';
 import MusicScreen from './screens/MusicScreen';
 import ProfileScreen from './screens/ProfileScreen';
-import MainScreen from './screens/MainScreen'; // Import MainScreen
-import WelcomeScreen from './screens/WelcomeScreen'; // Import WelcomeScreen
+import MainScreen from './screens/MainScreen'; 
+import WelcomeScreen from './screens/WelcomeScreen'; 
 import AlbumList from './components/AlbumList';
 import AlbumDetailScreen from "./components/AlbumDetailScreen";
 
@@ -24,44 +24,30 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      <StatusBar style="light" />
       <Stack.Navigator initialRouteName="Welcome">
-        {/* WelcomeScreen will be the first screen */}
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="SignIn" component={SignInUser} options={{ headerShown: true }} />
-        <Stack.Screen name="SignUp" component={SignUpUser} options={{ headerShown: true }} />
-        <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: true }} />
-        <Stack.Screen name="AlbumList" component={AlbumList} options={{ headerShown: true }}/>
-
-        {/* MainScreen added to Stack Navigator */}
-        <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: true }} />
-        
-        {/* Add ProfileScreen to the Stack Navigator */}
-        <Stack.Screen
-          name="ProfileScreen"
-          component={ProfileScreen} 
-          options={{ headerShown: true }}
-        />
-        
-        {/* Home tab navigator inside Stack */}
-        <Stack.Screen
-          name="Home"
-          component={HomeTabNavigator}
-          options={{ headerShown: false }}  // Hide header in Tab Navigator screen
-        />
+        <Stack.Screen name="SignIn" component={SignInUser} options={{ headerStyle: styles.header, headerTintColor: 'white', title: 'Sign In' }} />
+        <Stack.Screen name="SignUp" component={SignUpUser} options={{ headerStyle: styles.header, headerTintColor: 'white', title: 'Sign Up' }} />
+        <Stack.Screen name="Search" component={SearchScreen} options={{ headerStyle: styles.header, headerTintColor: 'white', title: 'Search' }} />
+        <Stack.Screen name="AlbumList" component={AlbumList} options={{ headerStyle: styles.header, headerTintColor: 'white', title: 'Albums' }} />
+        <Stack.Screen name="Main" component={MainScreen} options={{ headerStyle: styles.header, headerTintColor: 'white', title: 'Main' }} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerStyle: styles.header, headerTintColor: 'white', title: 'Profile' }} />
+        <Stack.Screen name="Home" component={HomeTabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="AlbumDetail" component={AlbumDetailScreen} />
-        {/* MusicScreen */}
         <Stack.Screen 
           name="Music" 
           component={MusicScreen} 
           options={({ navigation }) => ({
-            headerShown: true,
+            headerStyle: styles.header,
+            headerTintColor: 'white',
             headerLeft: () => (
               <Ionicons 
                 name="arrow-back" 
                 size={24} 
                 color="white" 
                 style={{ marginLeft: 10 }}
-                onPress={() => navigation.goBack()} // Back button action
+                onPress={() => navigation.goBack()} 
               />
             ),
             headerRight: () => (
@@ -70,7 +56,7 @@ export default function App() {
                 size={24} 
                 color="white" 
                 style={{ marginRight: 10 }}
-                onPress={() => navigation.navigate('MusicList')} // Navigate to MusicList
+                onPress={() => navigation.navigate('MusicList')} 
               />
             ),
           })}
@@ -82,48 +68,42 @@ export default function App() {
 
 const HomeTabNavigator = () => (
   <Tab.Navigator
-    screenOptions={{
+    screenOptions={({ route }) => ({
       tabBarStyle: {
         backgroundColor: "#1A1C31",
         borderTopColor: "#01020B",
-      }
-    }}
+      },
+      tabBarActiveTintColor: "#E63946",
+      tabBarInactiveTintColor: "gray",
+      tabBarIcon: ({ color }) => {
+        let iconName;
+        if (route.name === 'Menu') {
+          iconName = "list-circle-outline";
+        } else if (route.name === 'MusicList') {
+          iconName = "menu-outline";
+        } else if (route.name === 'Search') {
+          iconName = "search";
+        } else if (route.name === 'Profile') {
+          iconName = "man-outline";
+        }
+        return <Ionicons name={iconName} size={24} color={color} />;
+      },
+      tabBarLabel: ({ focused, color }) => (
+        <Text style={{ color, fontSize: 12, fontWeight: focused ? 'bold' : 'normal' }}>
+          {route.name}
+        </Text>
+      ),
+    })}
   >
-    <Tab.Screen
-      name="Menu"
-      component={HomeScreen}
-      options={{
-        tabBarLabel: 'Menu',
-        tabBarIcon: ({ color }) => <Ionicons name="list-circle-outline" size={24} color={color} />,
-      }}
-    />
-    
-    <Tab.Screen
-      name="MusicList"
-      component={MainScreen}  // This will navigate to MainScreen when selected
-      options={{
-        tabBarLabel: 'Musiclist',
-        tabBarIcon: ({ color }) => <Ionicons name="menu-outline" size={24} color={color} />,
-      }}
-    />
-
-    {/* Swap Profile and Search tabs */}
-    <Tab.Screen
-      name="Search"
-      component={SearchScreen}
-      options={{
-        tabBarLabel: 'Search',
-        tabBarIcon: ({ color }) => <Ionicons name="search" size={24} color={color} />,
-      }}
-    />
-    
-    <Tab.Screen
-      name="Profile"
-      component={ProfileScreen}
-      options={{
-        tabBarLabel: 'Profile',
-        tabBarIcon: ({ color }) => <Ionicons name="man-outline" size={24} color={color} />,
-      }}
-    />
+    <Tab.Screen name="Menu" component={HomeScreen} />
+    <Tab.Screen name="MusicList" component={MainScreen} />
+    <Tab.Screen name="Search" component={SearchScreen} />
+    <Tab.Screen name="Profile" component={ProfileScreen} />
   </Tab.Navigator>
-);  
+);
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: '#1A1C31',
+  },
+});
