@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { songs, albums } from "../data"; // Import songs và albums từ data
+import { songs, albums } from "../data"; 
 import MusicList from "../components/MusicList";
 import AlbumList from "../components/AlbumList";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
@@ -64,7 +64,7 @@ const HomeScreen = ({ navigation }) => {
   const genres = groupSongsByGenre();
 
   const goToMusicList = () => {
-    navigation.navigate("MusicList");  // Chuyển đến MusicList screen
+    navigation.navigate("MusicList");  
   };
 
   return (
@@ -83,6 +83,7 @@ const HomeScreen = ({ navigation }) => {
           <TouchableOpacity onPress={goToMusicList} style={styles.musicListButton}>
               <Ionicons name="musical-notes" size={30} color="white" />
             </TouchableOpacity>
+            
         </View>
         
         {/* Albums List */}
