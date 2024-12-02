@@ -13,6 +13,8 @@ import MusicScreen from './screens/MusicScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import MainScreen from './screens/MainScreen'; // Import MainScreen
 import WelcomeScreen from './screens/WelcomeScreen'; // Import WelcomeScreen
+import AlbumList from './components/AlbumList';
+import AlbumDetailScreen from "./components/AlbumDetailScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,7 +30,8 @@ export default function App() {
         <Stack.Screen name="SignIn" component={SignInUser} options={{ headerShown: true }} />
         <Stack.Screen name="SignUp" component={SignUpUser} options={{ headerShown: true }} />
         <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: true }} />
-        
+        <Stack.Screen name="AlbumList" component={AlbumList} options={{ headerShown: true }}/>
+
         {/* MainScreen added to Stack Navigator */}
         <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: true }} />
         
@@ -45,7 +48,7 @@ export default function App() {
           component={HomeTabNavigator}
           options={{ headerShown: false }}  // Hide header in Tab Navigator screen
         />
-        
+        <Stack.Screen name="AlbumDetail" component={AlbumDetailScreen} />
         {/* MusicScreen */}
         <Stack.Screen 
           name="Music" 

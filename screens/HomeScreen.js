@@ -1,10 +1,19 @@
-import { FlatList, Text, View, StyleSheet, TouchableOpacity, Image, ImageBackground } from "react-native";
 import React, { useEffect, useState } from "react";
-import { songs } from "../data";
-import MusicList from "../components/MusicList";
+import { 
+  FlatList, 
+  Text, 
+  View, 
+  StyleSheet, 
+  TouchableOpacity, 
+  Image, 
+  ImageBackground 
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { songs, albums } from "../data"; // Import songs và albums từ data
+import MusicList from "../components/MusicList";
+import AlbumList from "../components/AlbumList";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 const HomeScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -19,26 +28,26 @@ const HomeScreen = ({ navigation }) => {
     try {
       const storedEmail = await AsyncStorage.getItem("email");
       const storedUsername = await AsyncStorage.getItem("username");
-      if (storedEmail !== null) {
-        setEmail(storedEmail);
-      }
+      const storedUserImage = await AsyncStorage.getItem("userImage");
+
+      if (storedEmail) setEmail(storedEmail);
+      if (storedUsername) setUsername(storedUsername);
+      if (storedUserImage) setUserImage(storedUserImage);
+
       if (!storedEmail || !storedUsername) {
         navigation.navigate("SignIn");
       }
-      if (storedUsername !== null) {
-        setUsername(storedUsername);
-      }
-      const storedUserImage = await AsyncStorage.getItem("userImage");
-      if (storedUserImage) {
-        setUserImage(storedUserImage);
-      }
     } catch (error) {
-      console.log(error);
+      console.log("Error retrieving data:", error);
     }
   };
 
   const navigateToProfile = () => {
     navigation.navigate("ProfileScreen");
+  };
+
+  const getSongsByIds = (ids) => {
+    return songs.filter((song) => ids.includes(song.id));
   };
 
   const groupSongsByGenre = () => {
@@ -54,6 +63,10 @@ const HomeScreen = ({ navigation }) => {
 
   const genres = groupSongsByGenre();
 
+  const goToMusicList = () => {
+    navigation.navigate("MusicList");  // Chuyển đến MusicList screen
+  };
+
   return (
     <ImageBackground source={require('../songs/images/Home.jpg')} style={styles.backgroundImage}>
       <SafeAreaView style={styles.container}>
@@ -67,7 +80,37 @@ const HomeScreen = ({ navigation }) => {
               <Image source={{ uri: userImage }} style={styles.profileImage} />
             </TouchableOpacity>
           )}
+          <TouchableOpacity onPress={goToMusicList} style={styles.musicListButton}>
+              <Ionicons name="musical-notes" size={30} color="white" />
+            </TouchableOpacity>
         </View>
+        
+        {/* Albums List */}
+        <FlatList
+  data={albums}
+  keyExtractor={(item) => item.id.toString()}
+  horizontal
+  renderItem={({ item }) => (
+    <View style={styles.albumContainer}>
+      <AlbumList
+        album={item}
+        onPress={() =>
+          navigation.navigate("AlbumDetail", {
+            album: item,
+            songs: getSongsByIds(item.songs),
+          })
+        }
+      />
+      {/* Đảm bảo rằng item.name là một chuỗi hợp lệ */}
+      {item.title && <Text style={styles.albumName}>{item.title}</Text>}
+    </View>
+  )}
+  contentContainerStyle={styles.albumListContainer}
+  showsHorizontalScrollIndicator={false}
+/>
+
+
+        {/* Genre List */}
         <FlatList
           data={genres}
           keyExtractor={(item) => item[0]}
@@ -77,12 +120,11 @@ const HomeScreen = ({ navigation }) => {
               <FlatList
                 horizontal
                 data={item[1]}
-                renderItem={({ item }) => (
-                  <MusicList item={item} />
-                )}
+                renderItem={({ item }) => <MusicList item={item} />}
                 keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={styles.listContainer}
                 ItemSeparatorComponent={() => <View style={styles.separator} />}
+                showsHorizontalScrollIndicator={false}
               />
             </View>
           )}
@@ -98,7 +140,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   header: {
     padding: 20,
@@ -129,6 +171,19 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#00FFF6",
   },
+  albumListContainer: {
+    paddingVertical: 10,
+    paddingLeft: 10,
+  },
+  albumContainer: {
+    alignItems: "center", // Center the album name below each album
+    marginRight: 15, // Add some space between items
+  },
+  albumName: {
+    fontSize: 14,
+    color: "#ffffff",
+    marginTop: 5, // Adds space between the album image and its name
+  },
   genreContainer: {
     marginVertical: 10,
   },
@@ -139,7 +194,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   listContainer: {
-    padding: 10,
+    paddingHorizontal: 10,
   },
   separator: {
     width: 10,

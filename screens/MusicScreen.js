@@ -36,6 +36,8 @@ const MusicScreen = () => {
         { shouldPlay: true, volume }
       );
 
+      
+
       setSound(newSound);  // Set the new sound
       setDuration(status.durationMillis);
       setIsPlaying(true);

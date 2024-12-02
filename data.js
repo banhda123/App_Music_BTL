@@ -81,3 +81,25 @@ export const songs = [
     },
   ];
   
+
+  export const albums = [
+    {
+      id: 1,
+      title: 'Chill Beats',
+      artwork: require('./songs/images/AlbumNcs.jpg'),
+      songs: [1, 2, 4], // IDs của bài hát trong album
+    },
+    {
+      id: 2,
+      title: 'Pop Hits',
+      artwork: require('./songs/images/AlbumPop.jpg'),
+      songs: [3, 7, 8, 9], // IDs của bài hát trong album
+    },
+    {
+      id: 3,
+      title: 'Global Vibes',
+      artwork: require('./songs/images/AlbumGlobal.png'),
+      songs: [5, 6], // IDs của bài hát trong album
+    },
+  ];
+  
