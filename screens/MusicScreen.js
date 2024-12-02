@@ -140,7 +140,7 @@ const MusicScreen = () => {
   };
 
   const goToMusicList = () => {
-    navigation.navigate("MusicList");  // Chuyển đến MusicList screen
+    navigation.navigate("MusicList");  
   };
 
   return (
@@ -148,18 +148,23 @@ const MusicScreen = () => {
       {!isMiniPlayerVisible && (
         <>
           <FlatList
-            horizontal
-            ref={ref}
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled
-            style={styles.imageSlider}
-            data={songs}
-            renderItem={({ item, index }) => (
-              <TouchableOpacity onPress={() => setCurrentSong(index)} style={styles.imageWrapper}>
-                <Image source={item.artwork} style={styles.songImage} />
-              </TouchableOpacity>
-            )}
-          />
+  horizontal
+  ref={ref}
+  showsHorizontalScrollIndicator={false}
+  pagingEnabled
+  style={styles.imageSlider}
+  data={songs}
+  renderItem={({ item, index }) => (
+    <TouchableOpacity onPress={() => setCurrentSong(index)} style={styles.imageWrapper}>
+      <Image source={item.artwork} style={styles.songImage} />
+    </TouchableOpacity>
+  )}
+  getItemLayout={(data, index) => ({
+    length: 250, // Chiều rộng (hoặc chiều cao) cố định của mỗi mục
+    offset: 250 * index, // Vị trí của mục trong danh sách
+    index,
+  })}
+/>
 
           <Text style={styles.nowPlayingText}>Now playing</Text>
           <Text style={styles.songTitle}>{songs[currentSong].title}</Text>

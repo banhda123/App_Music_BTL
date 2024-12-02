@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#01020B',
   },
   logo: {
-    width: 200,  // Đặt kích thước phù hợp với hình ảnh
-    height: 200, // Đặt kích thước phù hợp với hình ảnh
-    marginBottom: 40, // Khoảng cách giữa logo và tiêu đề
+    width: 200,  
+    height: 200,
+    marginBottom: 40,
   },
   title: {
     fontSize: 32,
