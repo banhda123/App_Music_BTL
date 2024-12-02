@@ -9,12 +9,12 @@ const MusicList = ({ item }) => {
     <TouchableOpacity
       style={{
         backgroundColor: "#3A3A3C",
-        height: 100, // Increased height
-        borderRadius: 15, // More rounded corners
-        marginBottom: 15, // More space below the element
+        height: 100, 
+        borderRadius: 15, 
+        marginBottom: 15, 
         flexDirection: "row",
         alignItems: "center",
-        paddingLeft: 20, // More padding on the left
+        paddingLeft: 20, 
         justifyContent: "space-between",
 
       }}

@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 const AlbumList = ({ album, onPress }) => {
-  // Kiểm tra album và artwork có tồn tại không
+
   if (!album || !album.artwork) {
-    return null; // Nếu không có album hoặc artwork, không render gì cả
+    return null; 
   }
 
   return (

@@ -7,14 +7,14 @@ export const useMusic = () => {
 };
 
 export const MusicProvider = ({ children }) => {
-  const [currentTrack, setCurrentTrack] = useState(null); // Track hiện tại
+  const [currentTrack, setCurrentTrack] = useState(null); 
 
   const setTrack = (track) => {
-    setCurrentTrack(track); // Set track đang phát
+    setCurrentTrack(track); 
   };
 
   const clearTrack = () => {
-    setCurrentTrack(null); // Xóa track khi không còn bài hát nào đang phát
+    setCurrentTrack(null); 
   };
 
   return (

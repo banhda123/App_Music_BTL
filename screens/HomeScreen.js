@@ -102,7 +102,7 @@ const HomeScreen = ({ navigation }) => {
           })
         }
       />
-      {/* Đảm bảo rằng item.name là một chuỗi hợp lệ */}
+
       {item.title && <Text style={styles.albumName}>{item.title}</Text>}
     </View>
   )}
@@ -177,13 +177,13 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   albumContainer: {
-    alignItems: "center", // Center the album name below each album
-    marginRight: 15, // Add some space between items
+    alignItems: "center",
+    marginRight: 15, 
   },
   albumName: {
     fontSize: 14,
     color: "#ffffff",
-    marginTop: 5, // Adds space between the album image and its name
+    marginTop: 5, 
   },
   genreContainer: {
     marginVertical: 10,
